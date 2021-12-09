@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import uniqid from 'uniqid';
 import TodosForm from './TodosForm'
 import TodosList from './TodosList'
+import axios from 'axios'
 
 const TodosBox = () => {
 
@@ -27,9 +28,11 @@ const TodosBox = () => {
             return [...todoList, taskObj]
         } )
     }
+
     const deleteTask = (taskId) =>{
         setTodoList( (todoList) => todoList.filter(task => task.id !== taskId))
     }
+
     const editTask = (taskId) => {
         const theTaskArr = todoList.filter(task => task.id === taskId)
         const newText = window.prompt('edit the task:', theTaskArr[0].text)
@@ -38,9 +41,14 @@ const TodosBox = () => {
                 task.text = task.id === taskId ? newText : task.text
                 return task
             })
-            setTodoList(newList)
+            const theEditedTaks = newList.filter(task => task.id === taskId)
+            axios.put(`http://localhost:3005/todos/${taskId}`, theEditedTaks[0])
+            .then(response => console.log(response))
+            .then(() => setTodoList(newList))
+            .catch(error => alert('server error', error))
         }
     }
+    
     const compliteTask = (taskId) => {
         const newTodoList = todoList.map((task) => {
             task.complite = task.id == taskId ? !task.complite : task.complite
