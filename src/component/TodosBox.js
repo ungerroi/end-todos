@@ -13,17 +13,6 @@ const TodosBox = () => {
         setTodoList(json)
     }, [])
 
-    useEffect(() => {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: JSON.stringify(taskObj)
-        };
-        fetch('http://localhost:3005/todos', requestOptions)
-    }, [todoList])
-
     const addTask = (text) => {
         const taskObj = {text: text, id: uniqid(), complite: false}
         const myHeaders = new Headers();
