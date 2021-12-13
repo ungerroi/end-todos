@@ -30,7 +30,10 @@ const TodosBox = () => {
     }
 
     const deleteTask = (taskId) =>{
-        setTodoList( (todoList) => todoList.filter(task => task.id !== taskId))
+        axios.delete(`http://localhost:3005/todos/${taskId}/`)
+        .then(resp => {console.log(resp.data)})
+        .then(() => setTodoList( (todoList) => todoList.filter(task => task.id !== taskId)))
+        .catch(error => {console.log(error)});
     }
 
     const editTask = (taskId) => {
