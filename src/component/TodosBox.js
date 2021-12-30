@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, createContext} from 'react'
 import uniqid from 'uniqid';
 import TodosForm from './TodosForm'
 import TodosList from './TodosList'
 import axios from 'axios'
+
+export const Context = createContext();
 
 const TodosBox = () => {
 
@@ -61,15 +63,15 @@ const TodosBox = () => {
     }
 
     return (
-        <div>
+        <Context.Provider value={todoList}>
             <TodosForm addTask={addTask} />
             <TodosList
-                todoList={todoList}
+                // todoList={todoList}
                 deleteTask={deleteTask}
                 editTask={editTask}
                 compliteTask={compliteTask} 
             />
-        </div>
+        </Context.Provider>
     )
 }
 

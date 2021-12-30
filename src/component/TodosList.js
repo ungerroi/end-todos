@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { TiDeleteOutline } from "react-icons/ti";
+import {Context} from './TodosBox'
 
-const TodosList = ({todoList, deleteTask, editTask, compliteTask}) => {
+
+const TodosList = ({deleteTask, editTask, compliteTask}) => {
+    const todoList = useContext(Context)
     return (
         <div>
             {todoList.map( (task) => {
